@@ -27,7 +27,7 @@ pygame.display.set_caption("Flood It Game")
 
 font = pygame.font.SysFont('Arial', 24)
 
-def create_board(size, num_colors):
+def create_board(size, num_colors):  # Создает новое игровое поле, заполненное случайными цветами
     board = []
     for _ in range(size):
         row = []
@@ -37,7 +37,7 @@ def create_board(size, num_colors):
         board.append(row)
     return board
 
-def draw_board(board, flood_set):
+def draw_board(board, flood_set):  # Отрисовывает игровое поле на экране.
     for row in range(BoardSize):
         for col in range(BoardSize):
             color_index = board[row][col]
@@ -51,7 +51,7 @@ def draw_board(board, flood_set):
                 pygame.draw.rect(screen, Colors[color_index], rect)
 
 
-def draw_sidebar(moves, max_moves, flood_set, total_cells): 
+def draw_sidebar(moves, max_moves, flood_set, total_cells):  # Отрисовывает боковую панель с информацией и кнопками цветов.
     sidebar_rect = pygame.Rect(BoardSize * CellSize, 0, SidebarWidth, WindowHeight)
     pygame.draw.rect(screen, (50, 50, 50), sidebar_rect)
     
@@ -74,7 +74,7 @@ def draw_sidebar(moves, max_moves, flood_set, total_cells):
         color_text = font.render(f"Цвет {i+1}", True, (255, 255, 255))
         screen.blit(color_text, (BoardSize * CellSize + 50, 135 + i * 60))
 
-def get_flood_set(board, start_row=0, start_col=0):
+def get_flood_set(board, start_row=0, start_col=0):  # Возвращает множество координат всех клеток, соединенных с начальной областью.
     
     start_color = board[start_row][start_col]
     flood_set = set()
@@ -97,11 +97,11 @@ def get_flood_set(board, start_row=0, start_col=0):
                 
     return flood_set
 
-def flood_fill(board, flood_set, new_color):
+def flood_fill(board, flood_set, new_color):  # Изменяет цвет всех клеток в flood_set на new_color.
     for row, col in flood_set:
         board[row][col] = new_color
 
-def check_win(flood_set, total_cells):
+def check_win(flood_set, total_cells):  # Проверяет залиты ли все клетки
     return len(flood_set) == total_cells
 
 def main():
